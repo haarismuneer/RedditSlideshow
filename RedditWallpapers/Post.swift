@@ -1,5 +1,5 @@
 //
-//  RedditAPIClient.swift
+//  Post.swift
 //  RedditWallpapers
 //
 //  Created by Haaris Muneer on 9/28/17.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class RedditAPIClient {
-
+struct Post {
+    let imageURLString: String
 }

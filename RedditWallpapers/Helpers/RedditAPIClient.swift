@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 enum Timeframe: String {
     case all = "all"
@@ -19,22 +20,20 @@ enum Timeframe: String {
 
 class RedditAPIClient {
     
-    static func getPosts(subreddit: String, timeframe: Timeframe, completion: @escaping(() -> Void)) {
+    static func getPosts(subreddit: String, timeframe: Timeframe, completion: @escaping(([JSON?]) -> Void)) {
         //https://api.reddit.com/r/earthporn/top?sort=top&t=all
         guard let url = URL(string: Constants.redditAPIBaseURL + "/r/\(subreddit)/top?sort=top&t=\(timeframe.rawValue)")
             else { print("invalid URL in getPosts"); return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else { print("no data received in getPosts "); return }
-            do {
-                let posts = try JSONSerialization.jsonObject(with: data, options: [])
-                print(posts)
-                
+            
+            let json = JSON(data: data)
+            if let posts = json["data"]["children"].array {
+                completion(posts)
             }
-            catch let decodeError {
-                print("couldn't decode the JSON", decodeError)
-            }
-            }.resume()
+            
+        }.resume()
         
     }
     

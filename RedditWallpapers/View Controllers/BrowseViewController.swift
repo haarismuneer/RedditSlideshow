@@ -13,7 +13,10 @@ class BrowseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        DataStore.sharedInstance.getPosts(subreddit: "earthporn", timeframe: .all) { (success) in
+            print(DataStore.sharedInstance.postsArray)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,14 +25,5 @@ class BrowseViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

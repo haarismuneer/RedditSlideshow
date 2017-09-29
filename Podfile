@@ -7,5 +7,6 @@ target 'RedditWallpapers' do
 
   # Pods for RedditWallpapers
   pod 'SnapKit'
+  pod 'SwiftyJSON'
 
 end

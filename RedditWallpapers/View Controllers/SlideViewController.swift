@@ -24,7 +24,7 @@ class SlideViewController: UIViewController {
     }
     
     func setViewProperties() {
-        view.backgroundColor = .red
+        view.backgroundColor = .darkGray
         
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)

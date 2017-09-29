@@ -22,10 +22,11 @@ class DataStore {
                 if let imageURL = postJSON!["data"]["preview"]["images"][0]["source"]["url"].string {
                     let post = Post(imageURLString: imageURL)
                     self.postsArray.append(post)
-                    completion(true)
+                    
                 }
                 
             }
+            completion(true)
         }
     }
     

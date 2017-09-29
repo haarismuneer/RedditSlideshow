@@ -13,10 +13,23 @@ class BrowseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DataStore.sharedInstance.getPosts(subreddit: "earthporn", timeframe: .all) { (success) in
-            print(DataStore.sharedInstance.postsArray)
-        }
         
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        DataStore.sharedInstance.getPosts(subreddit: "earthporn", timeframe: .all) { (success) in
+            
+            //            let pageVC = SlideshowPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+            
+            DispatchQueue.main.async {
+                let vc = SlideViewController()
+                vc.imageURLString = DataStore.sharedInstance.postsArray.first?.imageURLString
+                self.present(vc, animated: true, completion: nil)
+                
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

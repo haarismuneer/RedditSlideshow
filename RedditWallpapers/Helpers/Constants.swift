@@ -14,3 +14,13 @@ struct Constants {
     static let imgurAPIBaseURL = "https://api.imgur.com/3"
     
 }
+
+extension UIFont {
+    class func avenir(_ size : CGFloat) -> UIFont {
+        return UIFont(name: "Avenir", size: size)!
+    }
+    
+    class func avenirHeavy(_ size : CGFloat) -> UIFont {
+        return UIFont(name: "Avenir-Heavy", size: size)!
+    }
+}

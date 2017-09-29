@@ -10,4 +10,5 @@ import UIKit
 
 struct Post {
     let imageURLString: String
+    let title: String
 }

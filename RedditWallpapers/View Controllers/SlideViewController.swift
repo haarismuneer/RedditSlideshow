@@ -12,7 +12,7 @@ import SDWebImage
 
 class SlideViewController: UIViewController {
     
-    var imageView = UIImageView()
+    lazy var imageView = UIImageView()
     
     var imageURLString: String!
 

@@ -15,9 +15,7 @@ class BrowseViewController: UIViewController {
     var tableView = UITableView()
     var rightSideView = UIView()
     var previewImageView = UIImageView()
-    var featuredSubreddits: [String] {
-        return getFeaturedSubreddits()
-    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +34,12 @@ class BrowseViewController: UIViewController {
 
     func setViewProperties() {
         
-        self.view.backgroundColor = .darkGray
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+//        view.sendSubview(toBack: blurEffectView)
         
         tableView.register(SubredditTableViewCell.self, forCellReuseIdentifier: "subredditCell")
         tableView.delegate = self
@@ -67,9 +70,7 @@ class BrowseViewController: UIViewController {
         
     }
     
-    func getFeaturedSubreddits() -> [String] {
-        return ["EarthPorn", "wallpaper", "wallpapers", "unitedstatesofamerica", "wallpaperdump"]
-    }
+    
     
 
 }
@@ -77,17 +78,28 @@ class BrowseViewController: UIViewController {
 extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return featuredSubreddits.count
+        return Constants.subreddits.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "subredditCell", for: indexPath) as! SubredditTableViewCell
-        cell.subredditName = featuredSubreddits[indexPath.row]
+        cell.subredditName = Constants.subreddits[indexPath.row]
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let view = UITableViewHeaderFooterView()
+//        view.textLabel?.text = "Choose a subreddit!"
+//        view.textLabel?.font = UIFont.avenirHeavy(48)
+//        return view
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 150
+//    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let subreddit = self.featuredSubreddits[indexPath.row]
+        let subreddit = Constants.subreddits[indexPath.row]
         DataStore.sharedInstance.getPosts(subreddit: subreddit, timeframe: .all) { (success) in
             var slideVCArray: [SlideViewController] = []
             DispatchQueue.main.async {
@@ -108,10 +120,19 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         print("changed focus")
         if let row = context.nextFocusedIndexPath?.row {
-            let subreddit = featuredSubreddits[row]
+            
+            let cell = tableView.cellForRow(at: context.nextFocusedIndexPath!) as! SubredditTableViewCell
+            cell.titleLabel.textColor = .black
+            
+            let subreddit = Constants.subreddits[row]
+            let imageURL = DataStore.sharedInstance.featuredSubreddits[subreddit]
+            self.previewImageView.sd_setImage(with: imageURL, completed: nil)
         }
         
-        
+        if let indexPath = context.previouslyFocusedIndexPath {
+            let cell = tableView.cellForRow(at: indexPath) as! SubredditTableViewCell
+            cell.titleLabel.textColor = .white
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

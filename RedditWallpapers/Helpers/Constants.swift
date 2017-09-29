@@ -13,6 +13,8 @@ struct Constants {
     static let redditAPIBaseURL = "https://api.reddit.com"
     static let imgurAPIBaseURL = "https://api.imgur.com/3"
     
+    static let subreddits = ["EarthPorn", "wallpaper", "wallpapers", "unitedstatesofamerica"]
+    
 }
 
 extension UIFont {

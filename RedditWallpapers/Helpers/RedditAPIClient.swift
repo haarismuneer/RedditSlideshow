@@ -26,7 +26,7 @@ class RedditAPIClient {
             else { print("invalid URL in getPosts"); return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else { print("no data received in getPosts "); return }
+            guard let data = data else { print("no data received in getPosts"); return }
             
             let json = JSON(data: data)
             if let posts = json["data"]["children"].array {

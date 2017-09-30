@@ -13,8 +13,9 @@ import SDWebImage
 class SlideViewController: UIViewController {
     
     lazy var imageView = UIImageView()
+    lazy var titleLabel = UILabel()
     
-    var imageURLString: String!
+    var post: Post!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +38,18 @@ class SlideViewController: UIViewController {
         imageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        if let imageURL = URL(string: imageURLString) {
+        if let imageURL = URL(string: post.imageURLString) {
             imageView.sd_setImage(with: imageURL, completed: nil)
+        }
+        
+        titleLabel.text = post.title
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.avenir(24)
+        titleLabel.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.7)
+        titleLabel.lineBreakMode = .byTruncatingTail
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.left.equalTo(imageView)
         }
     }
 

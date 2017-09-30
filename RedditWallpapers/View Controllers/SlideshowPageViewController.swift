@@ -24,6 +24,9 @@ class SlideshowPageViewController: UIPageViewController {
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
+        else {
+            print("no images found!")
+        }
         
         runTimer(numberOfSeconds: intervalLength)
         
@@ -58,7 +61,7 @@ class SlideshowPageViewController: UIPageViewController {
     }
     
     @objc func changeSlideVC() {
-        if let nextVC = pageViewController(self, viewControllerAfter: (self.viewControllers?.first)!) {
+        if let firstVC = self.viewControllers?.first, let nextVC = pageViewController(self, viewControllerAfter: firstVC) {
             setViewControllers([nextVC], direction: .forward, animated: true, completion: nil)
         }
     }

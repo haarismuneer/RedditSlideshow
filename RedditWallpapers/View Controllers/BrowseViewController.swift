@@ -107,18 +107,23 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 for post in DataStore.sharedInstance.postsArray {
                     let vc = SlideViewController()
-                    vc.imageURLString = post.imageURLString
+                    vc.post = post
                     slideVCArray.append(vc)
                 }
-                pageVC.orderedViewControllers = slideVCArray
-                self.present(pageVC, animated: true, completion: nil)
+                if slideVCArray.count > 0 {
+                    pageVC.orderedViewControllers = slideVCArray
+                    self.present(pageVC, animated: true, completion: nil)
+                }
+                else {
+                    print("no images found!")
+                }
+                
                 
             }
         }
     }
     
     func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        print("changed focus")
         if let row = context.nextFocusedIndexPath?.row {
             
             let cell = tableView.cellForRow(at: context.nextFocusedIndexPath!) as! SubredditTableViewCell

@@ -26,7 +26,7 @@ class BrowseViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        tableView.remembersLastFocusedIndexPath = true
+        
         self.setNeedsFocusUpdate()
         self.updateFocusIfNeeded()
         
@@ -39,7 +39,7 @@ class BrowseViewController: UIViewController {
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
-//        view.sendSubview(toBack: blurEffectView)
+
         
         tableView.register(SubredditTableViewCell.self, forCellReuseIdentifier: "subredditCell")
         tableView.delegate = self

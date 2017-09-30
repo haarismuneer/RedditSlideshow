@@ -17,7 +17,7 @@ class SlideshowPageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        
         dataSource = self
         delegate = self
         

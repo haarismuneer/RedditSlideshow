@@ -23,9 +23,12 @@ class DataStore {
         RedditAPIClient.getPosts(subreddit: subreddit, timeframe: timeframe) { (posts) in
             self.postsArray.removeAll()
             for postJSON in posts {
-                if let imageURL = postJSON?["data"]["preview"]["images"][0]["source"]["url"].string, let title = postJSON?["data"]["title"].string {
-                    let post = Post(imageURLString: imageURL, title: title)
-                    self.postsArray.append(post)
+                if let image = postJSON?["data"]["preview"]["images"][0]["source"], let title = postJSON?["data"]["title"].string {
+                    
+                    if image["width"].intValue > 800 && image["height"].intValue > 800 {
+                        let post = Post(imageURLString: image["url"].stringValue, title: title)
+                        self.postsArray.append(post)
+                    }
                     
                 }
                 

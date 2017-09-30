@@ -22,7 +22,7 @@ class RedditAPIClient {
     
     static func getPosts(subreddit: String, timeframe: Timeframe, completion: @escaping(([JSON?]) -> Void)) {
         //https://api.reddit.com/r/earthporn/top?sort=top&t=all
-        guard let url = URL(string: Constants.redditAPIBaseURL + "/r/\(subreddit)/top?sort=top&t=\(timeframe.rawValue)")
+        guard let url = URL(string: Constants.redditAPIBaseURL + "/r/\(subreddit)/top?sort=top&t=\(timeframe.rawValue)&limit=50")
             else { print("invalid URL in getPosts"); return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in

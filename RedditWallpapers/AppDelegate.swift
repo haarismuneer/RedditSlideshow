@@ -6,7 +6,6 @@
 //  Copyright © 2017 Haaris Muneer. All rights reserved.
 //
 
-//TODO: preview images
 //TODO: filter out dumb images
 //TODO: find best subreddits
 //TODO: title label

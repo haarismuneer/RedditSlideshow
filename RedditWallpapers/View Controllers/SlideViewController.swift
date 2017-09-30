@@ -24,7 +24,12 @@ class SlideViewController: UIViewController {
     }
     
     func setViewProperties() {
-        view.backgroundColor = .darkGray
+        
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
         
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)

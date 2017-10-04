@@ -25,7 +25,7 @@ class DataStore {
             for postJSON in posts {
                 if let image = postJSON?["data"]["preview"]["images"][0]["source"], let title = postJSON?["data"]["title"].string {
                     
-                    if image["width"].intValue > 800 && image["height"].intValue > 800 {
+                    if image["width"].intValue * image["height"].intValue > Constants.minImageSize {
                         let post = Post(imageURLString: image["url"].stringValue, title: title)
                         self.postsArray.append(post)
                     }

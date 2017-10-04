@@ -7,26 +7,24 @@
 //
 
 import UIKit
+import Pageboy
 
-class SlideshowPageViewController: UIPageViewController {
+class SlideshowPageViewController: PageboyViewController {
 
     var orderedViewControllers: [SlideViewController]!
     var timer: Timer?
-    var intervalLength: Double = 5
+    var intervalLength: Double = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        dataSource = self
-        delegate = self
+        self.dataSource = self
+        self.delegate = self
+        self.transition = Transition(style: .fade, duration: 1.0)
+        self.isInfiniteScrollEnabled = true
         
-        if let firstViewController = orderedViewControllers.first {
-            setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
-        }
-        else {
-            print("no images found!")
-        }
+        
         
         runTimer(numberOfSeconds: intervalLength)
         
@@ -54,16 +52,16 @@ class SlideshowPageViewController: UIPageViewController {
         
         if timer != nil {
             timer?.invalidate()
-            
             timer = nil
             
         }
     }
     
     @objc func changeSlideVC() {
-        if let firstVC = self.viewControllers?.first, let nextVC = pageViewController(self, viewControllerAfter: firstVC) {
-            setViewControllers([nextVC], direction: .forward, animated: true, completion: nil)
-        }
+//        if let firstVC = self.viewControllers?.first, let nextVC = pageViewController(self, viewControllerAfter: firstVC) {
+//            setViewControllers([nextVC], direction: .forward, animated: true, completion: nil)
+//        }
+        scrollToPage(Page.next, animated: true)
     }
     
     func makeGestureRecognizers() {
@@ -76,52 +74,70 @@ class SlideshowPageViewController: UIPageViewController {
 
 }
 
-extension SlideshowPageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController as! SlideViewController) else {
-            return nil
-        }
-        
-        let previousIndex = viewControllerIndex - 1
-        
-        guard previousIndex >= 0 else {
-            return orderedViewControllers.last
-        }
-        
-        guard orderedViewControllers.count > previousIndex else {
-            return nil
-        }
-        
-        return orderedViewControllers[previousIndex]
+extension SlideshowPageViewController: PageboyViewControllerDelegate, PageboyViewControllerDataSource {
+    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
+        return self.orderedViewControllers.count
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController as! SlideViewController) else {
-            return nil
-        }
-        
-        let nextIndex = viewControllerIndex + 1
-        let orderedViewControllersCount = orderedViewControllers.count
-        
-        guard orderedViewControllersCount != nextIndex else {
-            return orderedViewControllers.first
-        }
-        
-        guard orderedViewControllersCount > nextIndex else {
-            return nil
-        }
-        
-        return orderedViewControllers[nextIndex]
+    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
+        return self.orderedViewControllers[index]
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if completed {
-            stopTimer()
-            runTimer(numberOfSeconds: intervalLength)
-        }
+    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
+        return nil
     }
+    
+    func pageboyViewController(_ pageboyViewController: PageboyViewController, didScrollToPageAt index: Int, direction: PageboyViewController.NavigationDirection, animated: Bool) {
+        stopTimer()
+        runTimer(numberOfSeconds: intervalLength)
+    }
+    
+    
+//    func pageViewController(_ pageViewController: UIPageViewController,
+//                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
+//        guard let viewControllerIndex = orderedViewControllers.index(of: viewController as! SlideViewController) else {
+//            return nil
+//        }
+//
+//        let previousIndex = viewControllerIndex - 1
+//
+//        guard previousIndex >= 0 else {
+//            return orderedViewControllers.last
+//        }
+//
+//        guard orderedViewControllers.count > previousIndex else {
+//            return nil
+//        }
+//
+//        return orderedViewControllers[previousIndex]
+//    }
+//
+//    func pageViewController(_ pageViewController: UIPageViewController,
+//                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
+//        guard let viewControllerIndex = orderedViewControllers.index(of: viewController as! SlideViewController) else {
+//            return nil
+//        }
+//
+//        let nextIndex = viewControllerIndex + 1
+//        let orderedViewControllersCount = orderedViewControllers.count
+//
+//        guard orderedViewControllersCount != nextIndex else {
+//            return orderedViewControllers.first
+//        }
+//
+//        guard orderedViewControllersCount > nextIndex else {
+//            return nil
+//        }
+//
+//        return orderedViewControllers[nextIndex]
+//    }
+//
+//    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+//        if completed {
+//            stopTimer()
+//            runTimer(numberOfSeconds: intervalLength)
+//        }
+//    }
     
     
 }

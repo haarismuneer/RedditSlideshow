@@ -15,6 +15,8 @@ struct Constants {
     
     static let subreddits = ["EarthPorn", "wallpaper", "wallpapers", "unitedstatesofamerica", "bigwallpapers", "ImaginaryLandscapes"]
     
+    static let minImageSize = 600000
+    
 }
 
 extension UIFont {

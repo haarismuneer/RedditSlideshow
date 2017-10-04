@@ -26,6 +26,10 @@ class SlideViewController: UIViewController {
     
     func setViewProperties() {
         
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(showTitleLabel))
+//        view.isUserInteractionEnabled = true
+//        view.addGestureRecognizer(gesture)
+        
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
@@ -47,15 +51,33 @@ class SlideViewController: UIViewController {
         titleLabel.font = UIFont.avenir(24)
         titleLabel.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.7)
         titleLabel.lineBreakMode = .byTruncatingTail
+        titleLabel.alpha = 0
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.top.left.equalTo(imageView)
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
+    
+    @objc func showTitleLabel() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.titleLabel.alpha = 1
+        }) { (finished) in
+            _ = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.hideTitleLabel), userInfo: nil, repeats: false)
+        }
     }
+    
+    @objc func hideTitleLabel() {
+        UIView.animate(withDuration: 0.2) {
+            self.titleLabel.alpha = 0
+        }
+    }
+
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//
+//        if let touch = touches.first {
+//            showTitleLabel()
+//        }
+//
+//    }
     
 }

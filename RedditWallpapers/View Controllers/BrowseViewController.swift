@@ -103,7 +103,7 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
         DataStore.sharedInstance.getPosts(subreddit: subreddit, timeframe: .all) { (success) in
             var slideVCArray: [SlideViewController] = []
             DispatchQueue.main.async {
-                let pageVC = SlideshowPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+                let pageVC = SlideshowPageViewController()
                 
                 for post in DataStore.sharedInstance.postsArray {
                     let vc = SlideViewController()

@@ -9,5 +9,6 @@ target 'RedditWallpapers' do
   pod 'SnapKit'
   pod 'SwiftyJSON'
   pod 'SDWebImage'
+  pod 'Pageboy', '~> 2.0'
 
 end

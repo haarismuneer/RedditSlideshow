@@ -39,14 +39,24 @@ class RedditAPIClient {
     
     static func getTopPostImageURL(subreddit: String, completion: @escaping((String?) -> ())) {
         guard let url = URL(string: Constants.redditAPIBaseURL + "/r/\(subreddit)/top?sort=top&limit=1")
-            else { print("invalid URL in getTopPost"); return }
+            else {
+                print("invalid URL in getTopPost")
+                completion(nil)
+                return
+            }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else { print("no data received in getTopPost "); return }
+            guard let data = data else {
+                print("no data received in getTopPost ")
+                completion(nil)
+                return
+            }
             
             let json = JSON(data: data)
             if let urlString = json["data"]["children"][0]["data"]["preview"]["images"][0]["source"]["url"].string {
                 completion(urlString)
+            } else {
+                completion(nil)
             }
             
             }.resume()

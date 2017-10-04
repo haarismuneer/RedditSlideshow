@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import GameplayKit
 
 class DataStore {
 
@@ -25,7 +26,7 @@ class DataStore {
             for postJSON in posts {
                 if let image = postJSON?["data"]["preview"]["images"][0]["source"], let title = postJSON?["data"]["title"].string {
                     
-                    if image["width"].intValue * image["height"].intValue > Constants.minImageSize {
+                    if image["width"].intValue * image["height"].intValue > Constants.minImageSize && image["url"].stringValue.range(of: ".gif") == nil {
                         let post = Post(imageURLString: image["url"].stringValue, title: title)
                         self.postsArray.append(post)
                     }
@@ -33,6 +34,7 @@ class DataStore {
                 }
                 
             }
+            self.postsArray = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: self.postsArray) as! [Post]
             completion(true)
         }
     }
@@ -41,22 +43,26 @@ class DataStore {
         let subreddits = Constants.subreddits
         
         let group = DispatchGroup()
-        group.enter()
         
         for sub in subreddits {
             group.enter()
+            
             RedditAPIClient.getTopPostImageURL(subreddit: sub, completion: { (imageURLString) in
                 if let urlString = imageURLString, let imageURL = URL(string: urlString) {
                     self.featuredSubreddits[sub] = imageURL
                 }
+                print("done with \(sub)")
                 group.leave()
             })
+            
         }
-        group.leave()
         
         group.notify(queue: .main, execute: {
+            print("done with all tasks")
             completion(true)
         })
+        
+        
         
     }
     

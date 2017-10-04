@@ -62,6 +62,7 @@ class BrowseViewController: UIViewController {
         
         previewImageView.contentMode = .scaleAspectFit
         rightSideView.addSubview(previewImageView)
+        
         previewImageView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.height.width.equalToSuperview().multipliedBy(0.85)

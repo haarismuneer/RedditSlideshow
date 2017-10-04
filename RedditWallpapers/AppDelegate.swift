@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DataStore.sharedInstance.getFeaturedSubreddits { (success) in
             if success {
                 DispatchQueue.main.async {
+                    self.window = UIWindow(frame: UIScreen.main.bounds)
                     self.window?.rootViewController = BrowseViewController()
                     self.window?.makeKeyAndVisible()
                 }

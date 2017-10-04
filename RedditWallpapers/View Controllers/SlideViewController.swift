@@ -49,7 +49,7 @@ class SlideViewController: UIViewController {
         titleLabel.text = post.title
         titleLabel.textColor = .white
         titleLabel.font = UIFont.avenir(24)
-        titleLabel.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.7)
+        titleLabel.backgroundColor = .black
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.alpha = 0
         view.addSubview(titleLabel)
@@ -59,25 +59,17 @@ class SlideViewController: UIViewController {
     }
     
     @objc func showTitleLabel() {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             self.titleLabel.alpha = 1
         }) { (finished) in
-            _ = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.hideTitleLabel), userInfo: nil, repeats: false)
+            _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.hideTitleLabel), userInfo: nil, repeats: false)
         }
     }
     
     @objc func hideTitleLabel() {
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.4) {
             self.titleLabel.alpha = 0
         }
     }
-
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//
-//        if let touch = touches.first {
-//            showTitleLabel()
-//        }
-//
-//    }
     
 }

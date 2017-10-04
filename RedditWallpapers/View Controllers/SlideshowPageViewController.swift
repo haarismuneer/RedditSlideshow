@@ -13,7 +13,7 @@ class SlideshowPageViewController: PageboyViewController {
 
     var orderedViewControllers: [SlideViewController]!
     var timer: Timer?
-    var intervalLength: Double = 4
+    var intervalLength: Double = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +28,7 @@ class SlideshowPageViewController: PageboyViewController {
         
         runTimer(numberOfSeconds: intervalLength)
         
-//        for vc in self.orderedViewControllers {
-//            let rightSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(registerSwipe))
-//            rightSwipeRecognizer.direction = .right
-//            vc.view.addGestureRecognizer(rightSwipeRecognizer)
-//
-//            let leftSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(registerSwipe))
-//            leftSwipeRecognizer.direction = .left
-//            vc.view.addGestureRecognizer(leftSwipeRecognizer)
-//        }
+        
 
     }
 
@@ -58,19 +50,27 @@ class SlideshowPageViewController: PageboyViewController {
     }
     
     @objc func changeSlideVC() {
-//        if let firstVC = self.viewControllers?.first, let nextVC = pageViewController(self, viewControllerAfter: firstVC) {
-//            setViewControllers([nextVC], direction: .forward, animated: true, completion: nil)
-//        }
         scrollToPage(Page.next, animated: true)
     }
     
-    func makeGestureRecognizers() {
+    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         
+        let currentPage = self.orderedViewControllers[self.currentIndex!]
+        
+        for press in presses {
+            if (press.type == .select) {
+                if currentPage.titleLabel.alpha == 0 {
+                    currentPage.showTitleLabel()
+                }
+                else {
+                    currentPage.hideTitleLabel()
+                }
+            }
+            else {
+                super.pressesEnded(presses, with: event)
+            }
+        }
     }
-    
-    
-    
-
 
 }
 

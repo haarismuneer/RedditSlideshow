@@ -13,7 +13,7 @@ struct Constants {
     static let redditAPIBaseURL = "https://api.reddit.com"
     static let imgurAPIBaseURL = "https://api.imgur.com/3"
     
-    static let subreddits = ["EarthPorn", "wallpaper", "travel", "wallpapers", "ImaginaryLandscapes", "spaceporn", "art", "travelphotos", "unitedstatesofamerica", "bigwallpapers"]
+    static let subreddits = ["EarthPorn", "wallpaper", "astrophotography", "travel", "wallpapers", "ImaginaryLandscapes", "dogpictures", "cats", "spaceporn", "art", "castles", "travelphotos", "unitedstatesofamerica", "pic", "itookapicture", "SkyPorn", "bizzarebuildings"]
     
     static let minImageSize = 600000
     

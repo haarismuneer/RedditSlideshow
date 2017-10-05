@@ -20,6 +20,7 @@
 		2B4F80891F7DA885009DEAF4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F80881F7DA885009DEAF4 /* Secrets.swift */; };
 		2B4F808B1F7DB05F009DEAF4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F808A1F7DB05F009DEAF4 /* Post.swift */; };
 		2B4F80921F7DD334009DEAF4 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F80911F7DD334009DEAF4 /* SlideViewController.swift */; };
+		2B6BE3221F866CE9005B4D82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE3211F866CE9005B4D82 /* ViewController.swift */; };
 		2BEB01321F85E04600202796 /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB01311F85E04600202796 /* TableViewHeader.swift */; };
 		2BEB01341F85E24A00202796 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB01331F85E24A00202796 /* Extensions.swift */; };
 		2BF8F78E1F7EBDB700253311 /* SubredditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF8F78D1F7EBDB700253311 /* SubredditTableViewCell.swift */; };
@@ -43,6 +44,7 @@
 		2B4F80881F7DA885009DEAF4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		2B4F808A1F7DB05F009DEAF4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		2B4F80911F7DD334009DEAF4 /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
+		2B6BE3211F866CE9005B4D82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2BEB01311F85E04600202796 /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
 		2BEB01331F85E24A00202796 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2BF8F78D1F7EBDB700253311 /* SubredditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditTableViewCell.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				2B4F80781F7DA662009DEAF4 /* BrowseViewController.swift */,
 				2B4F807C1F7DA670009DEAF4 /* SlideshowPageViewController.swift */,
 				2B4F80911F7DD334009DEAF4 /* SlideViewController.swift */,
+				2B6BE3211F866CE9005B4D82 /* ViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B6BE3221F866CE9005B4D82 /* ViewController.swift in Sources */,
 				2B4F80831F7DA68E009DEAF4 /* DataStore.swift in Sources */,
 				2B4F80921F7DD334009DEAF4 /* SlideViewController.swift in Sources */,
 				2B4F80891F7DA885009DEAF4 /* Secrets.swift in Sources */,
@@ -421,12 +425,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HKWV3QPGW3;
+				DEVELOPMENT_TEAM = ZTEU5RXF67;
 				INFOPLIST_FILE = RedditWallpapers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.HaarisMuneer.RedditWallpapers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HaarisMuneer.SlideshowForReddit1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
@@ -438,12 +444,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HKWV3QPGW3;
+				DEVELOPMENT_TEAM = ZTEU5RXF67;
 				INFOPLIST_FILE = RedditWallpapers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.HaarisMuneer.RedditWallpapers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HaarisMuneer.SlideshowForReddit1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};

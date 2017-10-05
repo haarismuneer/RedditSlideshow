@@ -19,7 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+                
         
+        return true
+    }
+
+    func presentAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
         DataStore.sharedInstance.getFeaturedSubreddits { (success) in
             if success {
                 DispatchQueue.main.async {
@@ -27,14 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.window?.rootViewController = BrowseViewController()
                     self.window?.makeKeyAndVisible()
                 }
-                
+            }
+            else {//not connected to internet
+                DispatchQueue.main.async {
+                    self.presentAlert(title: "Error", message: "It looks like you're not connected to the internet. Please reconnect and try again.")
+                }
             }
         }
-        
-        
-        return true
     }
-
 
 }
 

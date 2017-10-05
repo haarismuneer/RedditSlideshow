@@ -13,7 +13,7 @@ class SlideshowPageViewController: PageboyViewController {
 
     var orderedViewControllers: [SlideViewController]!
     var timer: Timer?
-    var intervalLength: Double = 10
+    var intervalLength: Double = 30
     
     override func viewDidLoad() {
         super.viewDidLoad()

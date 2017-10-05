@@ -29,6 +29,7 @@ class BrowseViewController: UIViewController {
         
         self.setNeedsFocusUpdate()
         self.updateFocusIfNeeded()
+        self.tableView.remembersLastFocusedIndexPath = true
         
     }
 
@@ -71,7 +72,14 @@ class BrowseViewController: UIViewController {
         
     }
     
-    
+    func showAlertController(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+        
+    }
     
 
 }
@@ -100,25 +108,35 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let subreddit = Constants.subreddits[indexPath.row]
         DataStore.sharedInstance.getPosts(subreddit: subreddit, timeframe: .all) { (success) in
-            var slideVCArray: [SlideViewController] = []
-            DispatchQueue.main.async {
-                let pageVC = SlideshowPageViewController()
-                
-                for post in DataStore.sharedInstance.postsArray {
-                    let vc = SlideViewController()
-                    vc.post = post
-                    slideVCArray.append(vc)
+            if success {
+                var slideVCArray: [SlideViewController] = []
+                DispatchQueue.main.async {
+                    let pageVC = SlideshowPageViewController()
+                    
+                    for post in DataStore.sharedInstance.postsArray {
+                        let vc = SlideViewController()
+                        vc.post = post
+                        slideVCArray.append(vc)
+                    }
+                    if slideVCArray.count > 0 {
+                        pageVC.orderedViewControllers = slideVCArray
+                        self.tableView.deselectRow(at: indexPath, animated: false)
+                        self.present(pageVC, animated: true, completion: nil)
+                    }
+                    else {
+                        self.showAlertController(title: "Error", message: "Sorry, we couldn't find any images for that subreddit! Please search for another subreddit or try one of our recommended options.")
+                    }
+                    
+                    
                 }
-                if slideVCArray.count > 0 {
-                    pageVC.orderedViewControllers = slideVCArray
-                    self.present(pageVC, animated: true, completion: nil)
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.showAlertController(title: "Error", message: "It looks like you're not connected to the internet. Please reconnect and try again.")
                 }
-                else {
-                    print("no images found!")
-                }
-                
                 
             }
+            
         }
     }
     
@@ -158,5 +176,6 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
     func indexPathForPreferredFocusedView(in tableView: UITableView) -> IndexPath? {
         return IndexPath(row: 0, section: 0)
     }
+    
     
 }

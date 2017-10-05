@@ -88,16 +88,14 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = UITableViewHeaderFooterView()
-//        view.textLabel?.text = "Choose a subreddit!"
-//        view.textLabel?.font = UIFont.avenirHeavy(48)
-//        return view
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 150
-//    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = TableViewHeader()
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UIScreen.main.bounds.height/10
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let subreddit = Constants.subreddits[indexPath.row]
@@ -125,19 +123,31 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        
+        let xScale = 1.1
+        let yScale = 1.1
+        
         if let row = context.nextFocusedIndexPath?.row {
             
             let cell = tableView.cellForRow(at: context.nextFocusedIndexPath!) as! SubredditTableViewCell
             cell.titleLabel.textColor = .black
-            
+            cell.backgroundColor = .lightGray
             let subreddit = Constants.subreddits[row]
             let imageURL = DataStore.sharedInstance.featuredSubreddits[subreddit]
             self.previewImageView.sd_setImage(with: imageURL, completed: nil)
+            
+            coordinator.addCoordinatedAnimations({ () -> Void in
+                cell.transform = CGAffineTransform(scaleX: CGFloat(xScale), y: CGFloat(yScale))
+            }, completion: nil)
         }
         
         if let indexPath = context.previouslyFocusedIndexPath {
             let cell = tableView.cellForRow(at: indexPath) as! SubredditTableViewCell
             cell.titleLabel.textColor = .white
+            cell.backgroundColor = .clear
+            coordinator.addCoordinatedAnimations({ () -> Void in
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
         }
     }
     

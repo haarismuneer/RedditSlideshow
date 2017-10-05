@@ -26,6 +26,11 @@ class SubredditTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear
         
+        self.focusStyle = .custom
+        
+        self.layer.cornerRadius = 7
+        self.layer.masksToBounds = true
+        
         titleLabel.textColor = .white
         titleLabel.font = UIFont.avenir(36)
         addSubview(titleLabel)
@@ -45,6 +50,8 @@ class SubredditTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
     
 
 }

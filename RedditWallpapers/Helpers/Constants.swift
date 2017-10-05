@@ -17,14 +17,8 @@ struct Constants {
     
     static let minImageSize = 600000
     
+    static let backgroundColors = ["#1abc9c", "#16a085", "", "", "", "", "", ""]
+    
 }
 
-extension UIFont {
-    class func avenir(_ size : CGFloat) -> UIFont {
-        return UIFont(name: "Avenir", size: size)!
-    }
-    
-    class func avenirHeavy(_ size : CGFloat) -> UIFont {
-        return UIFont(name: "Avenir-Heavy", size: size)!
-    }
-}
+

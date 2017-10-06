@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "tv",
-      "filename" : "Background.png",
+      "filename" : "Background.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "tv",
+      "filename" : "logo_small_0001_Background.jpg",
       "scale" : "2x"
     }
   ],
